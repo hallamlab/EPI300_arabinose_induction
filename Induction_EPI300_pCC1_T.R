@@ -1,6 +1,6 @@
 # ============================================================
 # Plot: Induction, isoamyl alcohol (OD600 vs Time)
-# Strains: EPI300_pCC1_ATF1, EPI300_pCC1_ATF1_ara
+# Strains: EPI300_pCC1, EPI300_pCC1_ara
 # ============================================================
 
 library(tidyverse)
@@ -38,7 +38,7 @@ colnames(raw) <- col_names
 
 # ---- 2. Reshape to long format (Avg + SD, for plotting with error bars) --
 # Only keep the two strains of interest
-strains <- c("EPI300_pCC1_ATF1", "EPI300_pCC1_ATF1_ara")
+strains <- c("EPI300_pCC1", "EPI300_pCC1_ara")
 
 df_long <- raw |>
   pivot_longer(
@@ -52,8 +52,8 @@ df_long <- raw |>
 
 # ---- 3. Plot ---------------------------------------------------------------
 # Visually distinct shapes (mix of filled/open so they're tellable apart
-# even without color): triangle, x
-shape_values <- c(17, 4)
+# even without color): square, open triangle
+shape_values <- c(15, 2)
 
 p <- ggplot(df_long, aes(x = Time, y = OD600, color = Strain, shape = Strain)) +
   geom_errorbar(aes(ymin = OD600 - SD, ymax = OD600 + SD),
@@ -63,7 +63,7 @@ p <- ggplot(df_long, aes(x = Time, y = OD600, color = Strain, shape = Strain)) +
   scale_x_continuous(breaks = seq(0, 22, by = 2), limits = c(0, 22)) +
   scale_y_continuous(breaks = seq(0, 1.6, by = 0.2), limits = c(0, 1.6)) +
   labs(
-    title = "Induction: EPI300_pCC1_ATF1",
+    title = "Induction: EPI300_pCC1, Tubes",
     x = "Time (h)",
     y = "OD 600",
     color = NULL,
@@ -78,4 +78,4 @@ p <- ggplot(df_long, aes(x = Time, y = OD600, color = Strain, shape = Strain)) +
 
 print(p)
 
-ggsave("induction_EPI300_pCC1_ATF1.png", p, width = 9, height = 5, dpi = 300)
+ggsave("induction_EPI300_pCC1_T.png", p, width = 9, height = 5, dpi = 300)

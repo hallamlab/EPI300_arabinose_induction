@@ -1,5 +1,6 @@
 # ============================================================
 # Plot: Induction, isoamyl alcohol (OD600 vs Time)
+# Strains: EPI300, EPI300_ara
 # ============================================================
 
 library(tidyverse)
@@ -35,31 +36,34 @@ col_names <- c("Time",
                paste0(strain_names[-1], "_", header2[-1]))
 colnames(raw) <- col_names
 
-# ---- 2. Reshape to long format (Avg columns only, for plotting) ----------
-strains <- unique(strain_names[-1])
+# ---- 2. Reshape to long format (Avg + SD, for plotting with error bars) --
+# Only keep the two strains of interest
+strains <- c("EPI300", "EPI300_ara")
 
 df_long <- raw |>
-  select(Time, ends_with("_Avg")) |>
   pivot_longer(
     cols = -Time,
-    names_to = "Strain",
-    values_to = "OD600"
+    names_to = c("Strain", ".value"),
+    names_pattern = "(.+)_(Avg|SD)"
   ) |>
-  mutate(Strain = str_remove(Strain, "_Avg$")) |>
+  rename(OD600 = Avg) |>
+  filter(Strain %in% strains) |>
   mutate(Strain = factor(Strain, levels = strains))
 
 # ---- 3. Plot ---------------------------------------------------------------
-# 8 visually distinct shapes (mix of filled/open so they're tellable apart
-# even without color): circle, square, triangle, diamond, plus, x, open circle, open triangle
-shape_values <- c(16, 15, 17, 18, 3, 4, 1, 2)
+# Visually distinct shapes (mix of filled/open so they're tellable apart
+# even without color): circle, open circle
+shape_values <- c(16, 1)
 
 p <- ggplot(df_long, aes(x = Time, y = OD600, color = Strain, shape = Strain)) +
+  geom_errorbar(aes(ymin = OD600 - SD, ymax = OD600 + SD),
+                width = 0.3, linewidth = 0.4, alpha = 0.7) +
   geom_point(size = 2.4) +
   scale_shape_manual(values = shape_values) +
   scale_x_continuous(breaks = seq(0, 22, by = 2), limits = c(0, 22)) +
   scale_y_continuous(breaks = seq(0, 1.6, by = 0.2), limits = c(0, 1.6)) +
   labs(
-    title = "Induction, isoamyl alcohol",
+    title = "Induction: EPI300, Tubes",
     x = "Time (h)",
     y = "OD 600",
     color = NULL,
@@ -74,4 +78,4 @@ p <- ggplot(df_long, aes(x = Time, y = OD600, color = Strain, shape = Strain)) +
 
 print(p)
 
-ggsave("induction_isoamyl_alcohol.png", p, width = 9, height = 5, dpi = 300)
+ggsave("induction_EPI300_T.png", p, width = 9, height = 5, dpi = 300)
