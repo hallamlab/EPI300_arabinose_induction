@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ============================================================
 # Plot: Induction, Tubes vs 96-well plate (OD600 vs Time, with SD error bars)
 # ============================================================
@@ -103,7 +102,7 @@ p <- ggplot(df_long, aes(x = Time, y = OD600, color = Method, shape = Strain)) +
 print(p)
 
 ggsave("induction_tubes96well_combined.png", p, width = 10, height = 5.5, dpi = 300)
-=======
+
 # ============================================================
 # Plot: Induction, Tubes vs 96-well plate (OD600 vs Time, with SD error bars)
 # ============================================================
@@ -208,4 +207,4 @@ p <- ggplot(df_long, aes(x = Time, y = OD600, color = Method, shape = Strain)) +
 print(p)
 
 ggsave("induction_tubes96well_combined.png", p, width = 10, height = 5.5, dpi = 300)
->>>>>>> 76fc01add2792312e318e13a61e92adae2323ca7
+
