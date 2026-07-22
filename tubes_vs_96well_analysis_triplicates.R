@@ -207,7 +207,7 @@ p <- ggplot(summary_agg, aes(x = hour, y = avg, color = Format, fill = Format)) 
 
 print(p)
 
-ggsave(file.path(output_dir, "tubes_vs_96well_growthcurves_fromraw.png"),
+ggsave(file.path(output_dir, "Growth_Curves_Tu96w_Repl_Comb.png"),
        plot = p, width = 11, height = 7, dpi = 150)
 
 cat("\nSaved: tubes_vs_96well_pertimepoint_ttests_fromraw.csv\n")
