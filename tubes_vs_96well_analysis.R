@@ -186,7 +186,7 @@ p <- ggplot(plot_df, aes(x = hour, y = avg, color = format, fill = format)) +
   geom_point(size = 1.0) +
   facet_wrap(~ strain, scales = "free_y") +
   labs(
-    title = "Growth curves: Tubes vs 96-well plate",
+    title = "Growth curves using Avg: Tubes vs 96-well plate",
     x = "Time (h)", y = "OD (Avg \u00b1 SD)",
     color = "Format", fill = "Format"
   ) +
@@ -196,7 +196,7 @@ p <- ggplot(plot_df, aes(x = hour, y = avg, color = format, fill = format)) +
 
 print(p)   # display the figure in the plot window
 
-ggsave(file.path(output_dir, "tubes_vs_96well_growthcurves.png"),
+ggsave(file.path(output_dir, "tubes_vs_96well_Avg_curves.png"),
        plot = p, width = 11, height = 7, dpi = 150)
 
 cat("\nSaved: tubes_vs_96well_pertimepoint_ttests.csv\n")
