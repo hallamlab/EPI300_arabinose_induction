@@ -57,10 +57,10 @@ p <- ggplot(df_long, aes(x = Time, y = OD600, color = Strain, shape = Strain)) +
                 linewidth = 0.4, alpha = 0.6) +
   geom_point(size = 1.5) +
   scale_shape_manual(values = shape_values) +
-  scale_x_continuous(breaks = seq(0, 22, by = 2), limits = c(0, 22)) +
-  scale_y_continuous(breaks = seq(0, 1.6, by = 0.2), limits = c(0, 1.6)) +
+  scale_x_continuous(breaks = seq(0, 15, by = 2), limits = c(0, 15)) +
+  scale_y_continuous(breaks = seq(0, 1.4, by = 0.2), limits = c(0, 1.4)) +
   labs(
-    title = "Induction, isoamyl alcohol, tubes",
+    title = "Induction (ara, 0.01%) with isoamyl alcohol (iAAl, 0.01%)",
     x = "Time (h)",
     y = "OD 600",
     color = NULL,
@@ -75,4 +75,4 @@ p <- ggplot(df_long, aes(x = Time, y = OD600, color = Strain, shape = Strain)) +
 
 print(p)
 
-ggsave("Induction_Combined_T.png", p, width = 9, height = 5, dpi = 300)
+ggsave("Induction_Combined_T_14h.png", p, width = 9, height = 5, dpi = 300)
