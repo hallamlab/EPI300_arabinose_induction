@@ -55,7 +55,7 @@ shape_values <- c(16, 15, 17, 18, 3, 4, 1, 2)
 p <- ggplot(df_long, aes(x = Time, y = OD600, color = Strain, shape = Strain)) +
   geom_errorbar(aes(ymin = OD600 - SD, ymax = OD600 + SD), width = 0.3,
                 linewidth = 0.4, alpha = 0.6) +
-  geom_point(size = 2.4) +
+  geom_point(size = 2.0) +
   scale_shape_manual(values = shape_values) +
   scale_x_continuous(breaks = seq(0, 22, by = 2), limits = c(0, 22)) +
   scale_y_continuous(breaks = seq(0, 1.6, by = 0.2), limits = c(0, 1.6)) +
